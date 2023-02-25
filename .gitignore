@@ -1,1 +1,5 @@
 drewett/.terraform/
+drewett/basic/.terraform/
+drewett/basic/.terraform*
+keys.bat
+
