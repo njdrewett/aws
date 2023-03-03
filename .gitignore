@@ -8,6 +8,10 @@ drewett/state/.terraform/
 drewett/state/.terraform*
 drewett/state/*.tfstate
 drewett/state/*.tfstate.backup
+drewett/workspace/.terraform/
+drewett/workspace/.terraform*
+drewett/workspace/*.tfstate
+drewett/workspace/*.tfstate.backup
 keys.bat
 
 
