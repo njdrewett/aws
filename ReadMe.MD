@@ -1,8 +1,11 @@
-Terraform state definition
+Using AWS and terraform
 
-Store terraform state on an AWS S3 bucket
+Definitions spinning up various examples in AWS.
 
-# setting up of S3 bucket would need to be done first (via  these terraforms) inorder to store in S3 bucket.
-See comments in state.tf file.
+terraform from hashicorp should be installed to run terraform examples. 
 
-terraform init -backend-config=backend.hcl
+
+
+
+
+
