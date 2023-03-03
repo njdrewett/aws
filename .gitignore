@@ -1,17 +1,9 @@
 drewett/.terraform/
-drewett/basic/.terraform/
-drewett/basic/.terraform*
-drewett/basic/*.tfstate
-drewett/basic/*.tfstate.backup
+drewett/*/.terraform/
+drewett/*/.terraform*
+drewett/*/*.tfstate
+drewett/*/*.tfstate.backup
 drewett/.terraform/
-drewett/state/.terraform/
-drewett/state/.terraform*
-drewett/state/*.tfstate
-drewett/state/*.tfstate.backup
-drewett/workspace/.terraform/
-drewett/workspace/.terraform*
-drewett/workspace/*.tfstate
-drewett/workspace/*.tfstate.backup
 keys.bat
 
 

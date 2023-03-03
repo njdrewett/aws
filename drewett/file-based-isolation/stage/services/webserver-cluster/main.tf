@@ -1,3 +1,7 @@
+provider "aws" {
+  region = "eu-west-2"
+}
+
 
 #Basic Linux EC2 instance running a busybox basic html page exposed
 #Replaced with aws launch configuration and auto-scaling group
@@ -23,13 +27,11 @@ resource "aws_launch_configuration" "linux_launch_config" {
   instance_type   = "t2.micro"
   security_groups = [aws_security_group.instance.id]
 
-  user_data                   = <<EOF
-  #!/bin/bash
-  echo "Hello World" > index.html
-  nohup busybox httpd -f -p ${var.server_port} &
-  EOF
-  user_data_replace_on_change = true
-
+  user_data = templatefile("user-data.sh", {
+    server_port = var.server_port
+    db_address  = data.terraform_remote_state.db.outputs.address
+    db_port     = data.terraform_remote_state.db.outputs.port
+  })
   #Required when using asg due to dependency
   lifecycle {
     create_before_destroy = true
@@ -158,25 +160,24 @@ resource "aws_security_group" "instance" {
   }
 }
 
-variable "server_port" {
-  description = "The Port the server will use for HTTP requests"
-  type        = number
-  default     = 8080
-}
+terraform {
+  backend "s3" {
+    #       bucket = "drewett-terraform-state"
+    key = "global/s3/stage/services/webserver-cluster/terraform.tfstate"
+    #       region = "eu-west-2"
 
-## Only viable if we deployed a single AWS EC2 instance
-# output "public_ip" {
-#   value       = aws_instance.linux.public_ip
-#   description = "The public IP address of the web server"
-# }
-
-output "alb_dns_name" {
-  value       = aws_lb.linux_lb.dns_name
-  description = "The DNS Name of the Load Balancer"
+    #       dynamodb_table = "drewett-terraform-state-locks"
+    #       encrypt = "true"
+  }
 }
 
 
+data "terraform_remote_state" "db" {
+  backend = "s3"
+  config = {
+    bucket = "drewett-terraform-state"
+    key    = "global/s3/stage/data-stores/mysql/terraform.tfstate"
+    region = "eu-west-2"
+  }
 
-output "server_port" {
-  value = var.server_port
 }

@@ -1,12 +1,12 @@
 provider "aws" {
-    region = "eu-west-2"
+  region = "eu-west-2"
 }
 
 
 #Basic Linux EC2 instance
 resource "aws_instance" "linux" {
-  ami                    = "ami-0aaa5410833273cfe"
-  instance_type          = "t2.micro"
+  ami           = "ami-0aaa5410833273cfe"
+  instance_type = "t2.micro"
 
   tags = {
     Name = "aws-linux"
@@ -14,7 +14,7 @@ resource "aws_instance" "linux" {
 }
 
 terraform {
-    backend "s3" {
-        key = "workspace/s3/terraform.tfstate"        
-    }    
+  backend "s3" {
+    key = "workspace/s3/terraform.tfstate"
+  }
 }
