@@ -1,4 +1,4 @@
-FIle-base isolation example
+module example
 
 
 Initialise with terraform init 
@@ -16,5 +16,4 @@ and terrafomr apply in each
 
 run.bat - initialise and execute. WebServer Hello world + parameters argument forRDS connection is displayed.
 
-destory.bat - destroy the environment
-
+destory.bat - destory the environment
