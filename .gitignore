@@ -1,8 +1,8 @@
 drewett/.terraform/
-drewett/*/.terraform/
-drewett/*/.terraform*
-drewett/*/*.tfstate
-drewett/*/*.tfstate.backup
+drewett/**/.terraform/
+drewett/**/.terraform*
+drewett/**/*.tfstate
+drewett/**/*.tfstate.backup
 drewett/.terraform/
 keys.bat
 
