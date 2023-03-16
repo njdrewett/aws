@@ -22,7 +22,7 @@ variable "db_remote_state_key" {
 
 
 variable "instance_type" {
-  description = "The typoe of EC2 instance to run (e.g. t2.micro)"
+  description = "The type of EC2 instance to run (e.g. t2.micro)"
   type        = string
 }
 
@@ -34,4 +34,9 @@ variable "min_size" {
 variable "max_size" {
   description = " The maximum number of EC2 instances in the ASG"
   type        = number
+}
+
+variable "enable_autoscaling_schedule" {
+  description = "If set to true, enable auto scaling schedule"
+  type        = bool
 }

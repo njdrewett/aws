@@ -39,3 +39,8 @@ variable "newnames" {
   type        = list(string)
   default     = ["Mathew", "Mark", "Luke"]
 }
+
+variable "give_neil_cloudwatch_full_access" {
+  description = "Whether to give Neil user full access or not"
+  type        = bool
+}

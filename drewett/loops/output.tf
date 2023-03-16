@@ -54,3 +54,34 @@ output "names-for-directive" {
 output "names-for-directive-with-index" {
   value = "%{for i, name in var.newnames}(${i})${name}, %{endfor} "
 }
+
+output "names-for-directive-with-index_if" {
+  value = <<EOF
+%{for i, name in var.names}
+${name}%{if i < length(var.names) - 1}, %{endif}
+%{endfor}
+EOF
+}
+
+output "names-for-directive-with-index-if-strip-markers" {
+  value = <<EOF
+%{~for i, name in var.names~}
+${name}%{if i < length(var.names) - 1}, %{endif}
+%{~endfor~}
+EOF
+}
+
+output "names-for-directive-with-index-if-strip-markers-else" {
+  value = <<EOF
+%{~for i, name in var.names~}
+${name}%{if i < length(var.names) - 1}, %{else}.%{endif}
+%{~endfor~}
+EOF
+}
+
+output "neil-cloudwatch-policy-arn" {
+  value = one(concat(
+    aws_iam_user_policy_attachment.neil_cloud_watch_full_access[*].policy_arn,
+    aws_iam_user_policy_attachment.neil_cloud_watch_read_only[*].policy_arn
+  ))
+}

@@ -15,8 +15,6 @@ resource "aws_launch_configuration" "linux_launch_config" {
 
   user_data = templatefile("${path.module}\\user-data.sh", {
     server_port = var.server_port
-    db_address  = data.terraform_remote_state.db.outputs.address
-    db_port     = data.terraform_remote_state.db.outputs.port
   })
   #Required when using asg due to dependency
   lifecycle {
@@ -42,8 +40,11 @@ resource "aws_autoscaling_group" "linux_asg" {
   }
 
   dynamic "tag" {
-    for_each = var.custom_tags
-
+    for_each = {
+      for key, value in var.custom_tags :
+      key => upper(value)
+      if key != "Name"
+    }
     content {
       key                 = tag.key
       value               = tag.value

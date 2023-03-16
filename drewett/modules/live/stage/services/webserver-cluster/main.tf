@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "webserver_cluster" {
-  source = "../../../modules/services/webserver-cluster"
+  source = "../../../../modules/services/webserver-cluster"
 
   # Override the clusternames and state keys referenced in the modules main and veriables section
 
@@ -14,6 +14,8 @@ module "webserver_cluster" {
   instance_type = "t2.micro"
   min_size      = 2
   max_size      = 2
+
+  enable_autoscaling_schedule = false
 }
 
 resource "aws_security_group_rule" "allow_testing_inbound" {
@@ -23,5 +25,5 @@ resource "aws_security_group_rule" "allow_testing_inbound" {
   from_port   = 12345
   to_port     = 12345
   protocol    = "tcp"
-  cidr_blocks = "[0.0.0.0/0]"
+  cidr_blocks = ["0.0.0.0/0"]
 }
