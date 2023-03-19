@@ -5,6 +5,10 @@ provider "aws" {
 module "webserver_cluster" {
   source = "../../../../modules/services/webserver-cluster"
 
+  # Override AMI and the server text
+  ami_image   = "ami-0aaa5410833273cfe"
+  server_text = "This is staging"
+
   # Override the clusternames and state keys referenced in the modules main and veriables section
 
   cluster_name           = "webservers-stage"

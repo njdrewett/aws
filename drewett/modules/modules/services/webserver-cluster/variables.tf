@@ -40,3 +40,23 @@ variable "enable_autoscaling_schedule" {
   description = "If set to true, enable auto scaling schedule"
   type        = bool
 }
+
+variable "ami_image" {
+  description = "The AMI to run in this cluster"
+  type        = string
+  default     = "ami-0aaa5410833273cfe"
+}
+
+variable "server_text" {
+  description = "The Text the web server should return"
+  type        = string
+  default     = "Hello, World!"
+}
+
+
+## allow loopable for each dynamic tags
+variable "custom_tags" {
+  description = "Custom tags to set on the instances in the ASG"
+  type        = map(string)
+  default     = {}
+}
