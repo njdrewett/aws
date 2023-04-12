@@ -1,8 +1,8 @@
 data "aws_kms_secrets" "credentials" {
-    secret {
-        name = "db"
-        payload = file("db-creds.yml.encrypted")
-    }
+  secret {
+    name    = "db"
+    payload = file("db-creds.yml.encrypted")
+  }
 }
 
 locals {
@@ -10,15 +10,15 @@ locals {
 }
 
 resource "aws_db_instance" "mysql" {
-    identifier_prefix = "drewett-db"
-    engine = "mysql"
-    allocated_storage = 10
-    instance_class = "db.t2.micro"
-    skip_final_snapshot = true 
-    db_name = "mysql"
-  
-    username = local.db_creds.username
-    password = local.db_creds.password
+  identifier_prefix   = "drewett-db"
+  engine              = "mysql"
+  allocated_storage   = 10
+  instance_class      = "db.t2.micro"
+  skip_final_snapshot = true
+  db_name             = "mysql"
+
+  username = local.db_creds.username
+  password = local.db_creds.password
 }
 
 # provider "aws" {

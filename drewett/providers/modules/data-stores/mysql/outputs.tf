@@ -9,6 +9,6 @@ output "port" {
 }
 
 output "arn" {
-  value = aws_db_instance.mysql.arn
+  value       = aws_db_instance.mysql.arn
   description = "The ARN of the database"
 }
