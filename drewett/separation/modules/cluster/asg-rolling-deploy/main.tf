@@ -29,9 +29,19 @@ resource "aws_launch_configuration" "linux_launch_config" {
   #Required when using asg due to dependency
   lifecycle {
     create_before_destroy = true
+
+    precondition {
+      condition = data.aws_ec2_instance_type.instance.free_tier_eligible
+      error_message = "${var.instance_type} is not part of the Free teir "
+    }
   }
 
 }
+
+data "aws_ec2_instance_type" "instance" {
+  instance_type = var.instance_type
+}
+
 
 resource "aws_autoscaling_group" "linux_asg" {
   ## Explicitly depend on the launch configuration's name so that each time it
@@ -53,6 +63,11 @@ resource "aws_autoscaling_group" "linux_asg" {
   # When replacing this ASG, create the replacement first, and only delete the original after
   lifecycle {
     create_before_destroy = true
+
+    postcondition {
+      condition = length(self.availability_zones) > 1
+      error_message = "You must use more than one availability zone for high availability"
+    }
   }
 
   tag {
@@ -73,6 +88,8 @@ resource "aws_autoscaling_group" "linux_asg" {
       propagate_at_launch = true
     }
   }
+
+
 }
 
 

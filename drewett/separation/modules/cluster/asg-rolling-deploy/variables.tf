@@ -13,11 +13,26 @@ variable "cluster_name" {
 variable "instance_type" {
   description = "The type of EC2 instance to run (e.g. t2.micro)"
   type        = string
+
+  validation {
+    condition = contains(["t2.micro","t3.micro"], var.instance_type) 
+    error_message = "only free tier instance types of t2.micro and t3.micro can be used"
+  }
 }
 
 variable "min_size" {
   description = " The minimum number of EC2 instances in the ASG"
   type        = number
+
+  validation {
+    condition = var.min_size > 0 
+    error_message = "Minimum number of EC2 instances must be greater than 0"
+  }
+
+  validation {
+    condition = var.min_size <= 10
+    error_message = "Maximum numbe rof EC2 instance must be less than 10 due to costs"
+  }
 }
 
 variable "max_size" {
