@@ -7,7 +7,7 @@ module "asg" {
 
     cluster_name = var.cluster_name
     ami_image = data.aws_ami.ubuntu.id
-    instance_type ="t2.micro"
+    instance_type = var.instance_type
 
     min_size = 1
     max_size = 1

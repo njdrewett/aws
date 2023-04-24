@@ -6,3 +6,8 @@ variable "cluster_name" {
   default = "drewett-cluster"
 }
 
+variable "instance_type" {
+  description = "The instance type to use for the EC2 instance"
+  type        = string
+  default = "t2.micro"
+}
