@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "webserver_cluster" {
-  source = "../../../../modules/services/webserver-cluster"
+  source = "git::https://github.com/njdrewett/aws.git//drewett/versioning/modules/services/webserver-cluster?ref=v0.0.1"
 
   # Override AMI and the server text
   ami_image   = "ami-0aaa5410833273cfe"
