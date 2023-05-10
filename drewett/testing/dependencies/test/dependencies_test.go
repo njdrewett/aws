@@ -6,14 +6,21 @@ import (
 	"fmt"
 	"github.com/gruntwork-io/terratest/modules/http-helper"
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"strings"
 	"testing"
 	"time"
 )
 
-func TestAlb(t *testing.T) {
+func TestDependenciesExample(t *testing.T) {
 	opts := &terraform.Options{
-		// This should point to the relative path of the alb
-		TerraformDir: "../../separation/alb",
+		TerraformDir: "../",
+
+		Vars: map[string]interface{}{
+			"mysql_config": map[string]interface{}{
+				"address": "mock-value-for-test",
+				"port":    1138,
+			},
+		},
 	}
 
 	defer terraform.Destroy(t, opts)
@@ -23,19 +30,18 @@ func TestAlb(t *testing.T) {
 	albDnsName := terraform.OutputRequired(t, opts, "alb_dns_name")
 	url := fmt.Sprintf("http://%s", albDnsName)
 
-	// Test the ALBs default action is working and returns error 404
-	expectedStatus := 404
-	expectedBody := "404: page not found"
 	maxRetries := 10
 	timeBetweenRetries := 10 * time.Second
 
-	http_helper.HttpGetWithRetry(
+	http_helper.HttpGetWithRetryWithCustomValidation(
 		t,
 		url,
 		nil,
-		expectedStatus,
-		expectedBody,
 		maxRetries,
 		timeBetweenRetries,
+		func(status int, body string) bool {
+			return status == 200 && strings.Contains(body, "hello, neil")
+		},
 	)
+
 }
