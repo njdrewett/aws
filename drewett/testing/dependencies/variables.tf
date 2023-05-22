@@ -12,3 +12,10 @@ variable "mysql_config" {
   })
 
 }
+
+variable "environment" {
+  description = "The name of the environment"
+  type        = string
+  default     = "drewett"
+}
+

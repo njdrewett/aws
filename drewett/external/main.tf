@@ -1,6 +1,6 @@
 
 data "external" "echo" {
-    program = ["Powershell.exe", "./GetLocation.ps1"]
+  program = ["Powershell.exe", "./GetLocation.ps1"]
 }
 
 output "echo" {

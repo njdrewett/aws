@@ -31,7 +31,7 @@ resource "aws_launch_configuration" "linux_launch_config" {
     create_before_destroy = true
 
     precondition {
-      condition = data.aws_ec2_instance_type.instance.free_tier_eligible
+      condition     = data.aws_ec2_instance_type.instance.free_tier_eligible
       error_message = "${var.instance_type} is not part of the Free teir "
     }
   }
@@ -65,7 +65,7 @@ resource "aws_autoscaling_group" "linux_asg" {
     create_before_destroy = true
 
     postcondition {
-      condition = length(self.availability_zones) > 1
+      condition     = length(self.availability_zones) > 1
       error_message = "You must use more than one availability zone for high availability"
     }
   }

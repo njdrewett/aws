@@ -5,15 +5,23 @@ package test
 import (
 	"fmt"
 	"github.com/gruntwork-io/terratest/modules/http-helper"
+	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"testing"
 	"time"
 )
 
 func TestAlb(t *testing.T) {
+	// Run in parallel
+	t.Parallel()
+
 	opts := &terraform.Options{
 		// This should point to the relative path of the alb
 		TerraformDir: "../../separation/alb",
+
+		Vars: map[string]interface{}{
+			"alb_name": fmt.Sprintf("test-%s", random.UniqueId()),
+		},
 	}
 
 	defer terraform.Destroy(t, opts)

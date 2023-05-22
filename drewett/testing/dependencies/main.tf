@@ -7,7 +7,7 @@ module "hello_world_app" {
 
   server_text = "hello, neil"
 
-  environment = "drewett"
+  environment = var.environment
 
   db_remote_state_bucket = "drewett-terraform-state"
   db_remote_state_key    = "global/s3/stage/data-stores/mysql/terraform.tfstate"

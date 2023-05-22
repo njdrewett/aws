@@ -15,7 +15,7 @@ variable "instance_type" {
   type        = string
 
   validation {
-    condition = contains(["t2.micro","t3.micro"], var.instance_type) 
+    condition     = contains(["t2.micro", "t3.micro"], var.instance_type)
     error_message = "only free tier instance types of t2.micro and t3.micro can be used"
   }
 }
@@ -25,12 +25,12 @@ variable "min_size" {
   type        = number
 
   validation {
-    condition = var.min_size > 0 
+    condition     = var.min_size > 0
     error_message = "Minimum number of EC2 instances must be greater than 0"
   }
 
   validation {
-    condition = var.min_size <= 10
+    condition     = var.min_size <= 10
     error_message = "Maximum numbe rof EC2 instance must be less than 10 due to costs"
   }
 }
@@ -60,23 +60,23 @@ variable "custom_tags" {
 
 variable "subnet_ids" {
   description = "The Subnet Ids to deploy to"
-  type = list(string)
+  type        = list(string)
 }
 
 variable "target_group_arns" {
   description = "THE ARNs of the ELB target groups in which to register instances"
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
 
 variable "health_check_type" {
   description = "The type of health check to perform"
-  type = string
-  default = "EC2"
+  type        = string
+  default     = "EC2"
 }
 
 variable "user_data" {
   description = "The User Data script to run in each instance on boot"
-  type = string
-  default = null
+  type        = string
+  default     = null
 }

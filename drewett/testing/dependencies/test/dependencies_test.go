@@ -5,6 +5,7 @@ package test
 import (
 	"fmt"
 	"github.com/gruntwork-io/terratest/modules/http-helper"
+	"github.com/gruntwork-io/terratest/modules/random"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"strings"
 	"testing"
@@ -12,6 +13,9 @@ import (
 )
 
 func TestDependenciesExample(t *testing.T) {
+
+	t.Parallel()
+
 	opts := &terraform.Options{
 		TerraformDir: "../",
 
@@ -20,6 +24,7 @@ func TestDependenciesExample(t *testing.T) {
 				"address": "mock-value-for-test",
 				"port":    1138,
 			},
+			"environment": fmt.Sprintf("test-%s", random.UniqueId()),
 		},
 	}
 

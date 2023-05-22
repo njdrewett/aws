@@ -89,7 +89,7 @@ module "asg" {
   ami           = var.ami
   instance_type = var.instance_type
 
-  user_data     = templatefile("${path.module}/user-data.sh", {
+  user_data = templatefile("${path.module}/user-data.sh", {
     server_port = var.server_port
     db_address  = data.terraform_remote_state.db.outputs.address
     db_port     = data.terraform_remote_state.db.outputs.port
@@ -103,7 +103,7 @@ module "asg" {
   subnet_ids        = data.aws_subnets.default.ids
   target_group_arns = [aws_lb_target_group.asg.arn]
   health_check_type = "ELB"
-  
+
   custom_tags = var.custom_tags
 }
 

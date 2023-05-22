@@ -1,6 +1,6 @@
 variable "alb_name" {
   description = "The name to use for this ALB"
   type        = string
- 
-  default = "drewett-alb" 
+
+  default = "drewett-alb"
 }

@@ -6,7 +6,7 @@ resource "aws_instance" "linux" {
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.instance.id]
 
-  key_name        = aws_key_pair.generated_key.key_name
+  key_name = aws_key_pair.generated_key.key_name
 
   user_data                   = <<-EOF
   #!/bin/bash
@@ -18,15 +18,15 @@ resource "aws_instance" "linux" {
   tags = {
     Name = "aws-linux"
   }
-  
+
   provisioner "remote-exec" {
     inline = ["echo \"Hello World from $(uname -smp)\""]
   }
 
   connection {
-    type = "ssh"
-    host = self.public_ip
-    user = "ubuntu"
+    type        = "ssh"
+    host        = self.public_ip
+    user        = "ubuntu"
     private_key = tls_private_key.private_key.private_key_pem
   }
 
@@ -48,9 +48,9 @@ resource "aws_launch_configuration" "linux_launch_config" {
     create_before_destroy = true
   }
   ## runs a command on the local environment
-   provisioner "local-exec" {
-        command = "echo \"Hello World from $(uname -smp)\""
-    }
+  provisioner "local-exec" {
+    command = "echo \"Hello World from $(uname -smp)\""
+  }
 
 }
 
@@ -201,7 +201,7 @@ output "server_port" {
 ##remote execution using a generated key pairing
 resource "tls_private_key" "private_key" {
   algorithm = "RSA"
-  rsa_bits = 4096
+  rsa_bits  = 4096
 }
 
 resource "aws_key_pair" "generated_key" {
